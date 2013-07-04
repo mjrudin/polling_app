@@ -6,9 +6,12 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+team1 = Team.create(:name => "1st team")
+matt = User.create(:name => "Matt", :team_id => 1)
+samir = User.create(:name => "Samir", :team_id => 1)
 
-matt = User.create(:name => "Matt")
-samir = User.create(:name => "Samir")
+team2 = Team.create(:name => "2nd team")
+thirduser = User.create(:name => "thirduser", :team_id => 2)
 
 favorites = Poll.create(:title => "Favorites", :user_id => 1)
 food = Question.create(:text => "What's your favorite food?", :poll_id => 1)
@@ -18,6 +21,7 @@ shouldnt_be_added = Answer.create(:text => "Pasta", :question_id => 1)
 response1 = Response.create(:user_id => 2, :answer_id => 1)
 #this shouldn't add the response, as user_id = 1 made the question
 response2 = Response.create(:user_id => 1, :answer_id => 2)
+response3 = Response.create(:user_id => 3, :answer_id => 1)
 
 place = Question.create(:text => "What's your favorite place?", :poll_id => 1)
 italy = Answer.create(:text => "Italy", :question_id => 2)

@@ -6,12 +6,13 @@ class Response < ActiveRecord::Base
 
   validate :not_the_creator
   validate :hasnt_already_responded
+  validate :on_team
 
   [:user, :answer].each { |field| belongs_to field }
 
 
   def not_the_creator
-    if self.answer.question.poll.user.id == self.user_id
+    if self.answer.question.poll.user_id == self.user_id
       self.errors[:not_the_creator] << "creator can't respond"
     end
   end
@@ -27,4 +28,10 @@ class Response < ActiveRecord::Base
     end
   end
 
+  def on_team
+    other_team_id = self.answer.question.poll.user.team_id
+    unless other_team_id.nil? || (other_team_id == self.user.team_id)
+      self.errors[:on_team] << "not on team"
+    end
+  end
 end
