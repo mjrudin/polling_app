@@ -8,7 +8,7 @@ class Answer < ActiveRecord::Base
 
   belongs_to :question
 
-  has_many :responses
+  has_many :responses, :dependent => :destroy
 
   def unique_for_question
     if (self.question.answers.any? { |answer| answer.text == self.text})

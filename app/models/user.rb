@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
 
   belongs_to :team
 
-  has_many :polls
-  has_many :responses
+  has_many :polls, :dependent => :destroy
+  has_many :responses, :dependent => :destroy
 
   def poll_list
     self.polls.map { |poll| poll.title }
