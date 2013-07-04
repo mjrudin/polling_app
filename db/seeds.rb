@@ -23,8 +23,9 @@ place = Question.create(:text => "What's your favorite place?", :poll_id => 1)
 italy = Answer.create(:text => "Italy", :question_id => 2)
 mexico = Answer.create(:text => "Mexico", :question_id => 2)
 should_be_added = Answer.create(:text => "Pasta", :question_id => 2)
-response1 = Response.create(:user_id => 2, :answer_id => 2)
-response2 = Response.create(:user_id => 1, :answer_id => 1)
+response1 = Response.create(:user_id => 2, :answer_id => 3)
+#this shouldn't add the response, as user_id = 1 made the question
+response2 = Response.create(:user_id => 1, :answer_id => 3)
 
 
 
@@ -32,12 +33,14 @@ history = Poll.create(:title => "History", :user_id => 2)
 president = Question.create(:text => "First president?", :poll_id => 2)
 washington = Answer.create(:text => "Washington", :question_id => 3)
 lincoln = Answer.create(:text => "Lincoln", :question_id => 3)
-response1 = Response.create(:user_id => 1, :answer_id => 1)
-response2 = Response.create(:user_id => 1, :answer_id => 1)
+response1 = Response.create(:user_id => 1, :answer_id => 6)
+#A user can't respond with a different answer to a question they've
+#already answered differently
+response2 = Response.create(:user_id => 1, :answer_id => 7)
 
 capital = Question.create(:text => "Where is Albany", :poll_id => 2)
 jersey = Answer.create(:text => "New Jersey", :question_id => 4)
 york = Answer.create(:text => "New York", :question_id => 4)
-response1 = Response.create(:user_id => 1, :answer_id => 2)
+response1 = Response.create(:user_id => 1, :answer_id => 8)
 #A user can only respond once to a question
-response2 = Response.create(:user_id => 1, :answer_id => 1)
+response2 = Response.create(:user_id => 1, :answer_id => 9)

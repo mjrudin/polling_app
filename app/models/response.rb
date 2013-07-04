@@ -18,9 +18,11 @@ class Response < ActiveRecord::Base
 
 
   def hasnt_already_responded
-    if (self.answer.responses.any? do |response|
-          response.user_id == self.user_id
-        end)
+    already_responded = self.answer.question.answers.map do |answer|
+      answer.responses
+    end.flatten.any? { |response| response.user_id == self.user_id }
+
+    if already_responded
       self.errors[:hasnt_already_responded] << "already responded"
     end
   end
