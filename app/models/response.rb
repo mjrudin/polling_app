@@ -4,15 +4,25 @@ class Response < ActiveRecord::Base
     validates field, :presence => true
   end
 
-  validate :hasnt_already_responded?, :not_the_creator?
+  validate :not_the_creator
+  validate :hasnt_already_responded
 
   [:user, :answer].each { |field| belongs_to field }
 
-  def hasnt_already_responded?
-    self.answer.responses.none? {|response| response.user_id == self.user_id}
+
+  def not_the_creator
+    if self.answer.question.poll.user.id == self.user_id
+      self.errors[:not_the_creator] << "creator can't respond"
+    end
   end
 
-  def not_the_creator?
-    self.answer.question.poll.user.id != user_id
+
+  def hasnt_already_responded
+    if (self.answer.responses.any? do |response|
+          response.user_id == self.user_id
+        end)
+      self.errors[:hasnt_already_responded] << "already responded"
+    end
   end
+
 end

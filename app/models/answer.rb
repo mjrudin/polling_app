@@ -4,13 +4,15 @@ class Answer < ActiveRecord::Base
     validates field, :presence => true
   end
 
-  validates :unique_for_question?
+  validate :unique_for_question
 
   belongs_to :question
 
   has_many :responses
 
-  def unique_for_question?
-    self.question.answers.any? { |answer| answer.text == self.text}
+  def unique_for_question
+    if (self.question.answers.any? { |answer| answer.text == self.text})
+      self.errors[:unique_for_question] << "not unique"
+    end
   end
 end
