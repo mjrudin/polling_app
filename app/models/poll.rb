@@ -7,4 +7,8 @@ class Poll < ActiveRecord::Base
   belongs_to :user
 
   has_many :questions
+
+  def add_question(text)
+    Question.create!(:text => text, :poll_id => self.id)
+  end
 end
