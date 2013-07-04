@@ -7,6 +7,7 @@ class Question < ActiveRecord::Base
   belongs_to :poll
 
   has_many :answers, :dependent => :destroy
+  has_many :responses, :through => :answers
 
   def add_answer(text)
     Answer.create!(:text => text, :question_id => self.id)
