@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
-  [:name, :team_id].each do |field|
-    attr_accessible field
-    validates field, :presence => true
-  end
+  attr_accessible :name, :team_id
+  validates :name, :presence => true
 
   belongs_to :team
 
