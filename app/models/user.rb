@@ -4,5 +4,10 @@ class User < ActiveRecord::Base
 
   belongs_to :team
 
-  [:polls, :responses].each { |field| has_many field }
+  has_many :polls
+  has_many :responses
+
+  def poll_list
+    self.polls.map { |poll| poll.title }
+  end
 end
