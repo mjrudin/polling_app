@@ -11,4 +11,14 @@ class Question < ActiveRecord::Base
   def add_answer(text)
     Answer.create!(:text => text, :question_id => self.id)
   end
+
+  def results
+    response_counts = {}
+    answers = self.answers.includes(:responses)
+
+    answers.each do |answer|
+      response_counts[answer.text] = answer.responses.length
+    end
+    response_counts
+  end
 end
